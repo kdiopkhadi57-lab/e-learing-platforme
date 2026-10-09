@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16
+    container_name: elearning_postgres
+    environment:
+      POSTGRES_DB: elearning_db
+      POSTGRES_USER: elearning
+      POSTGRES_PASSWORD: elearning123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: elearning_backend
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/elearning_db
+      SPRING_DATASOURCE_USERNAME: elearning
+      SPRING_DATASOURCE_PASSWORD: elearning123
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: elearning_frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+volumes:
+  postgres_data:

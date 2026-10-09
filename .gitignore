@@ -1,0 +1,14 @@
+# Dépendances / builds
+node_modules/
+target/
+dist/
+.angular/
+
+# Temporaires / IDE / OS
+.tmp/
+.idea/
+.vscode/
+.DS_Store
+
+# Fichiers uploadés
+uploads/
